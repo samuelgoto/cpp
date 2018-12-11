@@ -1,15 +1,16 @@
-src = $(wildcard *.cc)
-obj = $(src:.cc=.o)
+#src = $(wildcard *.cc)
+#obj = $(src:.cc=.o)
 
 # LDFLAGS = -lGL -lglut -lpng -lz -lm
 
 CC=g++
 
-hello: $(obj)
-	mkdir bin
-	$(CC) -o bin/$@ $^ $(LDFLAGS)
+TARGETS=hello scopes
 
-.PHONY: clean
+all: $(TARGETS)
+
+%: %.o
+	$(CC) $< -o $@
 
 clean:
-	rm -df $(obj) hello bin/* bin *~
+	rm -df $(TARGETS)
