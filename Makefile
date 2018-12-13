@@ -5,12 +5,20 @@
 
 CC=g++
 
-TARGETS=hello scopes
+TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr move
+
+.SILENT: all
 
 all: $(TARGETS)
+	for bin in $(TARGETS); do \
+		echo $$bin; \
+		echo ""; \
+		./$$bin; \
+		echo ""; \
+	done
 
 %: %.o
 	$(CC) $< -o $@
 
 clean:
-	rm -df $(TARGETS)
+	rm -df $(TARGETS) *~
