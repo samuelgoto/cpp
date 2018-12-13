@@ -1,13 +1,15 @@
-#src = $(wildcard *.cc)
-#obj = $(src:.cc=.o)
-
-# LDFLAGS = -lGL -lglut -lpng -lz -lm
-
 CC=g++
+CPPFLAGS=-fno-elide-constructors
 
-TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr move
+TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr movectr
 
 .SILENT: all
+
+%: %.o
+	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+%.o: %.c 
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $<
 
 all: $(TARGETS)
 	for bin in $(TARGETS); do \
@@ -17,8 +19,6 @@ all: $(TARGETS)
 		echo ""; \
 	done
 
-%: %.o
-	$(CC) $< -o $@
 
 clean:
 	rm -df $(TARGETS) *~
