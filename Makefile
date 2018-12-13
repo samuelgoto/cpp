@@ -5,7 +5,7 @@
 
 CC=g++
 
-TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr move
+TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr move
 
 .SILENT: all
 
