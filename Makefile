@@ -1,7 +1,7 @@
 CC=g++
 CPPFLAGS=-fno-elide-constructors
 
-TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr movectr parameters
+TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr movectr parameters templates
 
 .SILENT: all
 
