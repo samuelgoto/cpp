@@ -48,6 +48,10 @@ class Foo {
   int count;
 };
 
+void f(UniquePtr<Foo> foo) {
+  assert(!foo.empty());
+}
+
 int main() {
   UniquePtr<Foo> foo(new Foo(3));
 
@@ -70,6 +74,10 @@ int main() {
   // UniquePtr<Foo> bar = foo; leads to a compilation error
   // because we delete the operator+ (UniquePtr<Foo>&) from UniquePtr.
   // UniquePtr<Foo> world = hello;
+
+  f(static_cast<UniquePtr<Foo>&&>(hello));
+
+  assert(hello.empty());
 
   return 0;
 }
