@@ -1,23 +1,27 @@
 #include <iostream>
+#include <cassert>
+
+using namespace std;
 
 class Foo {
  public:
   Foo(): count(0){
   }
   void operator ++() {
-    std::cout << "1) ++foo called" << std::endl;
+    cout << "1) ++foo called" << endl;
     count = count + 1;
   }
   void operator ++(int num) {
-    std::cout << "3) foo++ called: " << num << std::endl;
+    cout << "3) foo++ called: " << num << endl;
     count = count + 1 + num;
   }
   void operator +=(int num) {
-    std::cout << "5) foo+= called: " << num << std::endl;
+    cout << "5) foo+= called: " << num << endl;
     count = count + num;
   }
   Foo& operator +(const Foo& foo) {
-    std::cout << "7) foo + foo called" << std::endl;
+    cout << "7) foo + foo called" << endl;
+    count = count + foo.count;
   }
 
   int count;
@@ -25,14 +29,31 @@ class Foo {
 
 int main() {
   Foo foo;
-  std::cout << "0) count == 0? " << foo.count << std::endl;
+  assert(foo.count == 0);
   ++foo;
-  std::cout << "2) count == 1? " << foo.count << std::endl;
+  assert(foo.count == 1);
   foo++;
-  std::cout << "4) count == 2? " << foo.count << std::endl;
+  assert(foo.count == 2);
   foo += 1;
-  std::cout << "6) count == 3? " << foo.count << std::endl;
+  assert(foo.count == 3);
+
   Foo bar;
-  foo + bar;
+  bar.count = 1;
+  Foo hello = foo + bar;
+  assert(hello.count == 4);
+
+  // interesting ... so, it do a copy constructor
+  // or a move constructor?
+  assert(foo.count == 4);
+  assert(bar.count == 1);
+
+  // lets see ...
+  hello.count = 5;
+  assert(hello.count == 5);
+  assert(foo.count == 4);
+  assert(bar.count == 1);
+
+  // ah, copy constructor then.
+
   return 0;
 }

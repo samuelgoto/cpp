@@ -1,12 +1,12 @@
 CC=g++
 CPPFLAGS=-fno-elide-constructors
 
-TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr movectr
+TARGETS=hello constructor destructor fields fields_dtr unique_ptr overload copy copyctr deepctr movectr parameters
 
 .SILENT: all
 
 %: %.o
-	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o bin/$@
 
 %.o: %.c 
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $<
