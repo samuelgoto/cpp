@@ -22,8 +22,10 @@ class Adder {
 };
 
 int main() {
+  // function templates
   assert(sum(1, 2) == 3);
 
+  // class templates
   Adder<int> adder(1, 2);
   assert(adder.add() == 3);
   return 0;
