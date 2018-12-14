@@ -4,6 +4,7 @@ CPPFLAGS=-fno-elide-constructors
 TARGETS= \
   hello \
   constructor \
+  delete \
   destructor \
   fields \
   fields_dtr \
