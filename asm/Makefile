@@ -1,15 +1,18 @@
 CC=g++
 CPPFLAGS=-fno-elide-constructors -g -O0 -c
 
-TARGETS= main.s
+TARGETS= main.s constructor.s
 
 .SILENT: all
 
 %.o: %.cc
 	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-%.s: %.o
-	objdump -d -M intel -S $< > $@
+#%.s: %.o
+#	objdump -d -M intel -S $< > $@
+
+%.s: %.cc
+	cce compile g82 $< > $@
 
 foo := $(subst ".s", ".cc", $$bin)
 
@@ -26,7 +29,7 @@ all: $(TARGETS)
 		echo "Machine code: " >> README.md; \
 		echo "" >> README.md; \
 		echo "\`\`\`assembly" >> README.md; \
-		tail -n +7 $$bin >> README.md; \
+		cat $$bin >> README.md; \
 		echo "\`\`\`" >> README.md; \
 	done
 	cat FOOTER.md >> README.md
