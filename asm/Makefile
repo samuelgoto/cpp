@@ -1,7 +1,7 @@
 CC=g++
 CPPFLAGS=-fno-elide-constructors -g -O0 -c
 
-TARGETS= main.s constructor.s copy.s
+TARGETS= main.s constructor.s copyctr.s
 
 .SILENT: all
 
