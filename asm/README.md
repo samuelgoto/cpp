@@ -9,12 +9,6 @@ int main() {
 Machine code: 
 
 ```assembly
-
-main.o:     file format elf64-x86-64
-
-
-Disassembly of section .text:
-
 0000000000000000 <main>:
 int main() {
    0:	55                   	push   rbp

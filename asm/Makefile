@@ -26,7 +26,7 @@ all: $(TARGETS)
 		echo "Machine code: " >> README.md; \
 		echo "" >> README.md; \
 		echo "\`\`\`assembly" >> README.md; \
-		cat $$bin >> README.md; \
+		tail -n +7 $$bin >> README.md; \
 		echo "\`\`\`" >> README.md; \
 	done
 	cat FOOTER.md >> README.md
