@@ -20,10 +20,10 @@ TARGETS= \
 
 .SILENT: all
 
-%: src/%.o
+%: %.o
 	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o bin/$@
 
-src/%.o: src/%.c 
+%.o: %.c 
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $<
 
 all: $(TARGETS)
@@ -33,14 +33,14 @@ all: $(TARGETS)
 		echo ""; \
 		echo "# [$ssrc/$$bin.cc]($ssrc/$$bin.cc)" >> README.md; \
 		echo "\`\`\`c++" >> README.md; \
-		cat src/$$bin.cc >> README.md; \
+		cat $$bin.cc >> README.md; \
 		echo "\`\`\`" >> README.md; \
 		echo "Result: " >> README.md; \
 		echo "\`\`\`bash" >> README.md; \
-		cat src/$$bin.out >> README.md; \
+		./$$bin; \
+		./$$bin > $$bin.out; \
+		cat $$bin.out >> README.md; \
 		echo "\`\`\`" >> README.md; \
-		./bin/$$bin; \
-		./bin/$$bin > src/$$bin.out; \
 		echo ""; \
 	done
 	cat FOOTER.md >> README.md
