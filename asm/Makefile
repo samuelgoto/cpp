@@ -1,15 +1,15 @@
 CC=g++
 CPPFLAGS=-fno-elide-constructors -g -O0 -c
 
-TARGETS= main.s constructor.s
+TARGETS= main.s constructor.s copy.s
 
 .SILENT: all
 
 %.o: %.cc
 	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-#%.s: %.o
-#	objdump -d -M intel -S $< > $@
+%.ss: %.o
+	objdump -d -M intel -S $< > $@
 
 %.s: %.cc
 	cce compile g82 $< > $@
