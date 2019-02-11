@@ -13,7 +13,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 Hello, World!
 ```
@@ -41,7 +41,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 1) Foo() constructor called!
 2) Foo(num) constructor called!
@@ -82,7 +82,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 1) Foo() constructor called!
 ```
@@ -109,7 +109,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 0) entering scope
 1) constructor called!
@@ -150,7 +150,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 1) Foo() constructor called!
 2) Foo(num) constructor called!
@@ -193,7 +193,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 0) entering scope
 1) Bar() constructor called!
@@ -226,7 +226,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 0) entering scope
 1) constructor called!
@@ -295,7 +295,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 1) ++foo called
 3) foo++ called: 0
@@ -339,7 +339,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 foo = 0? 0
 bar = 3? 3
@@ -399,7 +399,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 - called constructor with 1
 - A copy constructor is called when:
@@ -449,7 +449,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 0) called constructor with 1
 ```
@@ -504,7 +504,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 0) called contructor
 1) calling f()
@@ -571,7 +571,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 constructor called: 1
 constructor called: 2
@@ -621,7 +621,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 ```
 # [src/userland.cc](src/userland.cc)
@@ -710,7 +710,7 @@ int main() {
   return 0;
 }
 ```
-Result: 
+Result:
 ```bash
 Foo constructor
 UniquePtr constructor
@@ -727,4 +727,35 @@ UniquePtr destructor
 empty, skipping
 UniquePtr destructor
 empty, skipping
+```
+# [src/no-copyctr.cc](src/no-copyctr.cc)
+```c++
+class Foo {
+ public:
+  Foo() {}
+  // This deletes the copy constructor.
+  Foo(const Foo &other) = delete;
+};
+
+void f(Foo a) {
+}
+
+int main() {
+  Foo foo;
+  // This is a compilation error, because we have deleted the copy constructor.
+  f(foo);
+}
+```
+Result:
+```bash
+no-copyctr.cc: In function ‘int main()’:
+no-copyctr.cc:14:8: error: use of deleted function ‘Foo::Foo(const Foo&)’
+   f(foo);
+        ^
+no-copyctr.cc:5:3: note: declared here
+   Foo(const Foo &other) = delete;
+   ^~~
+no-copyctr.cc:8:6: note:   initializing argument 1 of ‘void f(Foo)’
+ void f(Foo a) {
+      ^
 ```
