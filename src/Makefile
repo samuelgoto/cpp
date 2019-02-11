@@ -21,7 +21,8 @@ TARGETS= \
 .SILENT: all
 
 ERRORS= \
-  no-copyctr.err
+  no-copyctr.err \
+  no-assign.err \
 
 # FAILS = $(ERRORS:.cc=)
 

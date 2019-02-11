@@ -759,3 +759,30 @@ no-copyctr.cc:8:6: note:   initializing argument 1 of ‘void f(Foo)’
  void f(Foo a) {
       ^
 ```
+# [src/no-assign.cc](src/no-assign.cc)
+```c++
+class Foo {
+ public:
+  Foo() {}
+  // This deletes the assignment operator.
+  Foo& operator=(const Foo &other) = delete;
+};
+
+int main() {
+  Foo foo;
+  Foo bar;
+  // This is a compilation error, because we have deleted the assignment
+  // operator.
+  bar = foo;
+}
+```
+Result:
+```bash
+no-assign.cc: In function ‘int main()’:
+no-assign.cc:13:9: error: use of deleted function ‘Foo& Foo::operator=(const Foo&)’
+   bar = foo;
+         ^~~
+no-assign.cc:5:8: note: declared here
+   Foo& operator=(const Foo &other) = delete;
+        ^~~~~~~~
+```
