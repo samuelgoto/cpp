@@ -16,7 +16,8 @@ TARGETS= \
   movectr \
   parameters \
   templates \
-  userland
+  userland \
+  moveonly
 
 .SILENT: all
 
