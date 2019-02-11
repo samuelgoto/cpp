@@ -5,11 +5,8 @@ class Foo {
   Foo(const Foo &other) = delete;
 };
 
-void f(Foo a) {
-}
-
 int main() {
   Foo foo;
   // This is a compilation error, because we have deleted the copy constructor.
-  f(foo);
+  Foo bar = foo;
 }

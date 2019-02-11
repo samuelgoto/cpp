@@ -737,27 +737,21 @@ class Foo {
   Foo(const Foo &other) = delete;
 };
 
-void f(Foo a) {
-}
-
 int main() {
   Foo foo;
   // This is a compilation error, because we have deleted the copy constructor.
-  f(foo);
+  Foo bar = foo;
 }
 ```
 Result:
 ```bash
 no-copyctr.cc: In function ‘int main()’:
-no-copyctr.cc:14:8: error: use of deleted function ‘Foo::Foo(const Foo&)’
-   f(foo);
-        ^
+no-copyctr.cc:11:13: error: use of deleted function ‘Foo::Foo(const Foo&)’
+   Foo bar = foo;
+             ^~~
 no-copyctr.cc:5:3: note: declared here
    Foo(const Foo &other) = delete;
    ^~~
-no-copyctr.cc:8:6: note:   initializing argument 1 of ‘void f(Foo)’
- void f(Foo a) {
-      ^
 ```
 # [src/no-assign.cc](src/no-assign.cc)
 ```c++
